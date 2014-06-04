@@ -6,8 +6,8 @@ import java.sql.*;
 public class Main {
 
  private static Connection con = null;
- private static String username = "root";
- private static String password = "max1975";
+ private static String username = "username";
+ private static String password = "password";
  private static String URL = "jdbc:mysql://localhost:3306/mydb";
  private static Statement st = null;
  private static ResultSet rs = null;
@@ -16,25 +16,25 @@ public class Main {
 
      try {
 
-         Object newClass = Class.forName("com.mysql.jdbc.Driver").//класс поиска внешней библиотеки class loader
+         Object newClass = Class.forName("com.mysql.jdbc.Driver").//search external library class loader
                            newInstance();
-         DriverManager.registerDriver((Driver) newClass);//регистрирует этот класс и подключает
+         DriverManager.registerDriver((Driver) newClass);//register this class and connect
 
-         con = DriverManager.getConnection(URL, username, password);//коннект к TCP/IP сокету
+         con = DriverManager.getConnection(URL, username, password);//connect to TCP/IP socket
          if (con != null)
              System.out.println("Connection Successful !\n");
          if (con == null)
-             System.exit(0);//выключ. программа
-         Statement st = con.createStatement();//создаю объект statement
-         ResultSet rs = st.executeQuery("select*from student");//подаю запрос query и получаю результат
-         int x = rs.getMetaData().getColumnCount();//от результата прошу описание таблицы и сколько колонок
+             System.exit(0);//Switch off prg
+         Statement st = con.createStatement();//create object
+         ResultSet rs = st.executeQuery("select*from student");//send query to base and get result
+         int x = rs.getMetaData().getColumnCount();//from result getting table description and column count
 
          while (rs.next()) {
              for (int i = 1; i <= x; i++) {
-                 System.out.print(rs.getString(i) + "\t");//по колонкам
+                 System.out.print(rs.getString(i) + "\t");//print by columns
              }
 
-             System.out.println();//по записям
+             System.out.println();//print by records
          }
 
      } catch (Exception e) {
@@ -43,7 +43,7 @@ public class Main {
      } finally {
          if (rs != null) {
              try {
-                 rs.close();//порядок закрытия важен!!!!!
+                 rs.close();//closing order is important!!
              } catch (SQLException eex) {}
          }
 
