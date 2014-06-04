@@ -3,46 +3,48 @@ package textread;
 import java.util.*;
 import java.io.*;
 
-/**
- * <p>Title: </p>
- *
- * <p>Description: </p>
- *
- * <p>Copyright: Copyright (c) 2014</p>
- *
- * <p>Company: </p>
- *
- * @author not attributable
- * @version 1.0
- */
+
 public class StudentListReader {
     public StudentListReader(String sFileName) throws Exception{
         ArrayList<Student> students = readFileToArrayList(sFileName);
         if (students != null){
-        	
-        	// sort students by Name//Collections.sort();????
+        	printStudentList(students);
+        	Collections.sort(students);// sort students
+        	System.out.println("*************");
              printStudentList(students);
         }
     }
-    public static ArrayList<Student> readFileToArrayList(String fileToRead) throws FileNotFoundException{
+    public static ArrayList<Student> readFileToArrayList(String fileToRead) throws Exception{
         File file = new File(fileToRead);
-        ArrayList<Student> names = new ArrayList<Student>();
+        ArrayList<Student> groups = new ArrayList<Student>();
         Scanner in = new Scanner(file);
         while (in.hasNextLine()) {
-           // read next line to String variable sNextLine
-           // parse sNextLine by ":" to 3 parts
-           // create new object Student
-           // set its fileds (name, grade and age)
-           // add object to ArrayList
+        String sNextLine = in.nextLine();
+           
+          String[] field = sNextLine.split(":");//Line to Line breaks
+        
+          if (field.length < 3) {
+        	  System.out.println("Bad line!");
+        	  continue;
+          }
+          Student student = new Student();
+        
+        	student.iAge = Integer.parseInt(field[2]);// set its fields (name, grade and age)
+        	student.iGrade = Integer.parseInt(field[1]);
+        	student.sName = field[0];
+        	
+        	groups.add(student);// add object to ArrayList
+        	
         }
-        in.close();
-        return names;
-    }
+
+        return groups;
+        }
+    
     public static void printStudentList(ArrayList<Student> studentsList){
 
         for (Student s : studentsList){
             
-        	System.out.println("Student second name: " + s.sName + "\n" + "Number ofgrade: " + s.iGrade + "\n" + "Student age: " + s.iAge);
+        	System.out.println("Student second name: " + s.sName + "\t" + "Number ofgrade: " + s.iGrade + "\t" + "Student age: " + s.iAge);
         }
     }
 

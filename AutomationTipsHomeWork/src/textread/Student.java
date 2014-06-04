@@ -1,19 +1,13 @@
 package textread;
 
-/**
- * <p>Title: </p>
- *
- * <p>Description: </p>
- *
- * <p>Copyright: Copyright (c) 2014</p>
- *
- * <p>Company: </p>
- *
- * @author not attributable
- * @version 1.0
- */
-public class Student {
+
+public class Student implements Comparable<Student>{
     public String sName = "";
     public int iGrade = 0;
     public int iAge = 0;
+    
+    public int compareTo(Student s){
+        return sName.compareToIgnoreCase(s.sName);//"z-a" s.sName.compareToIgnoreCase(sName)
+    }
+    
 }
